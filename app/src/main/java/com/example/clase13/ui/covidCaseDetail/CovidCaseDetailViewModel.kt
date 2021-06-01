@@ -1,46 +1,22 @@
-package com.example.clase13.covidCases
+package com.example.clase13.ui.covidCaseDetail
 
-import android.app.Application
-import android.os.Handler
-import android.os.Looper
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import com.example.clase13.MainActivity
-import com.example.clase13.model.CovidCaseEntityMapper
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import com.example.clase13.model.CovidCaseModel
-import com.example.clase13.model.CovidCasesDao
-import com.example.clase13.model.DatabaseRepository
+
 import com.example.clase13.navigation.Navigator
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
-
-class CovidCaseDetailViewModel(application: Application) : AndroidViewModel(application) {
-
-    lateinit var case: CovidCaseModel
-    val myCase = MutableLiveData<CovidCaseModel>()
-    lateinit var navigator: Navigator
-    var database: CovidCasesDao
-
-    // Ya que AsyncTask esta deprecado utilizaremos esta forma. Y como vamos a hacer lectura y escritura en mas de un lado es mejor crearla aca
-    private val executor: ExecutorService = Executors.newSingleThreadExecutor()
-    private val handler = Handler(Looper.getMainLooper())
+import com.example.clase13.repository.CovidCaseRepository
 
 
-    init {
-        database = DatabaseRepository(application).getCovidCaseDao()
+class CovidCaseDetailViewModel(
+    private val covidCaseRepository: CovidCaseRepository,
+    val navigator: Navigator
+) : ViewModel() {
+
+    lateinit var case:LiveData<CovidCaseModel>
+
+    fun bindView(country: String) {
+        covidCaseRepository.loadCaseFromLocation(country)
+        case = covidCaseRepository.locationCountry
     }
-
-    fun loadCases(countryId: String) {
-        executor.execute {
-            case = CovidCaseEntityMapper().mapFromCached(database.getCountry(countryId))
-            myCase.postValue(case)
-        }
-    }
-
-    fun setNavigator(activity: MainActivity?) {
-        navigator = Navigator(activity)
-    }
-
-
-
 }

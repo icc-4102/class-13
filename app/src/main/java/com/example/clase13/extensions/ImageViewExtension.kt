@@ -1,9 +1,9 @@
-package com.example.clase12.extensions
+package com.example.clase13.extensions
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.clase12.R
+import com.example.clase13.R
 
 
 fun ImageView.loadImage(url: String?){

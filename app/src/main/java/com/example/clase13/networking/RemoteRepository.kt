@@ -1,4 +1,4 @@
-package com.example.clase12.networking
+package com.example.clase13.networking
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -16,7 +16,7 @@ private fun makeLoggingInterceptor(isDebug: Boolean): HttpLoggingInterceptor {
     return logging
 }
 //Este es el cliente que funciona por detras de retrofit
-private fun getOkClient(): OkHttpClient {
+fun getOkClient(): OkHttpClient {
     return OkHttpClient()
             .newBuilder()
             .addInterceptor(makeLoggingInterceptor(isDebug = true))
@@ -24,10 +24,12 @@ private fun getOkClient(): OkHttpClient {
 }
 
 
-fun getRetrofit(): Retrofit {
+fun getRetrofit(okHttpClient: OkHttpClient): Retrofit {
     val retrofit = Retrofit.Builder().baseUrl("https://corona.lmao.ninja/v2/")
-            .client(getOkClient())
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     return retrofit
 }
+
+fun CovidCaseApi(retrofit: Retrofit): CovidCaseRemoteRepository = retrofit.create(CovidCaseRemoteRepository::class.java)

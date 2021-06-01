@@ -1,4 +1,4 @@
-package com.example.clase12.model
+package com.example.clase13.model
 
 interface EntityMapper<T,V> {
 

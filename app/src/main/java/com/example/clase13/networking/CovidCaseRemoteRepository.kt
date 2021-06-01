@@ -5,7 +5,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface CovidCaseRepository {
+interface CovidCaseRemoteRepository {
 
     @GET("countries?yesterday")
     fun getCountriesCovidCases(): Call<List<CovidCaseModel>>

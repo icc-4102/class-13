@@ -1,4 +1,4 @@
-package com.example.clase12.model
+package com.example.clase13.model
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

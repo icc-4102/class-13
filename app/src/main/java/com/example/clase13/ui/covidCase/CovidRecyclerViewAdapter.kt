@@ -1,4 +1,4 @@
-package com.example.clase13.covidCases
+package com.example.clase13.ui.covidCase
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,14 +7,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.clase13.CovidCase
-import com.example.clase13.IAdapterView
 import com.example.clase13.OnClickListener
 import com.example.clase13.R
 import com.example.clase13.extensions.loadImage
 import com.example.clase13.model.CovidCaseModel
 
-class CovidRecyclerViewAdapter(override val onClickListener: OnClickListener):
-        RecyclerView.Adapter<CovidRecyclerViewAdapter.CovidViewHolder>(), IAdapterView {
+class CovidRecyclerViewAdapter(val onClickListener: OnClickListener):
+        RecyclerView.Adapter<CovidRecyclerViewAdapter.CovidViewHolder>() {
 
     var data = listOf<CovidCaseModel>()
 
@@ -39,13 +38,6 @@ class CovidRecyclerViewAdapter(override val onClickListener: OnClickListener):
         return data.size
     }
     // Metodo donde agrega un item al recyclerView
-    override fun addItem(item: Any) {
-        if(item is CovidCase){
-//            data.add(item)
-            notifyDataSetChanged()
-        }
-        this.notifyDataSetChanged()
-    }
 
     //Este metodo utiliza la lista que le entrega el viewmodel
     fun set(cases: List<CovidCaseModel>){

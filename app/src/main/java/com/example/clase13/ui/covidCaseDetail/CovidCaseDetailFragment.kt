@@ -1,4 +1,4 @@
-package com.example.clase13.covidCases
+package com.example.clase13.ui.covidCaseDetail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -27,8 +27,8 @@ class CovidCaseDetailFragment : Fragment() {
         val view = inflater.inflate(R.layout.activity_covid_case_detail, container, false)
         val country = args.country
         val map  = view.findViewById<MapView>(R.id.mapView)
-        viewModel.loadCases(country)
-        viewModel.myCase.observe(viewLifecycleOwner, Observer {
+        viewModel.bindView(country)
+        viewModel.case.observe(viewLifecycleOwner, Observer {
             view.findViewById<TextView>(R.id.titleLabel).text =
                     "Covid Case Detail from ${it.country}"
             view.findViewById<TextView>(R.id.deathLabel).text = "Deaths:  ${it.deaths}"
@@ -42,16 +42,6 @@ class CovidCaseDetailFragment : Fragment() {
             }
         })
 
-//        val favoriteButton  = view.findViewById<Button>(R.id.save_favorite_button)
-//        favoriteButton.setOnClickListener {
-////            if (viewModel.selectedCase.value != null ){
-////                viewModel.addCase(viewModel.selectedCase.value !!)
-////            }
-//        }
-//        val closeButton = view.findViewById<Button>(R.id.close_button)
-//        closeButton.setOnClickListener {
-//            viewModel.navigator.navigateUp()
-//        }
         return view
     }
 

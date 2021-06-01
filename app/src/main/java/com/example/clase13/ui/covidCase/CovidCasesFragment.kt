@@ -1,4 +1,4 @@
-package com.example.clase13.covidCases
+package com.example.clase13.ui.covidCase
 
 import android.location.Geocoder
 import android.os.Bundle
@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.clase13.*
 import com.example.clase13.model.CovidCaseModel
 import com.example.clase13.service.LocationService
+import com.example.clase13.ui.MainActivity
+import org.koin.android.ext.android.inject
 import java.util.*
 
 class CovidCasesFragment : Fragment(), OnClickListener {
@@ -17,11 +19,10 @@ class CovidCasesFragment : Fragment(), OnClickListener {
 
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: CovidRecyclerViewAdapter
-    private val viewModel: CovidCasesViewModel by activityViewModels()
+    private val viewModel: CovidCasesViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.setNavigator(activity as MainActivity)
         setHasOptionsMenu(true)
     }
 
@@ -34,12 +35,12 @@ class CovidCasesFragment : Fragment(), OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_covid_casses, container, false)
-        viewModel.loadCases()
+        viewModel.bindView()
         adapter = CovidRecyclerViewAdapter(this)
         recyclerView = view.findViewById<RecyclerView>(R.id.covid_recycler_view)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        viewModel.myCases.observe(viewLifecycleOwner, Observer {
+        viewModel.cases.observe(viewLifecycleOwner, Observer {
             adapter.set(it)
         })
         return view
