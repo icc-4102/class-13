@@ -7,39 +7,31 @@
 
     <fragment
         android:id="@+id/covidCasesFragment"
-        android:name="com.example.clase12.covidCases.CovidCasesFragment"
+        android:name="com.example.clase13.ui.covidCase.CovidCasesFragment"
         android:label="fragment_covid_casses"
-        tools:layout="@layout/fragment_covid_casses" >
+        tools:layout="@layout/fragment_covid_casses">
         <action
             android:id="@+id/action_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
         <action
             android:id="@+id/action_to_covidCaseDetailFragment"
-            app:destination="@id/covidCaseDetailFragment" >
-            <argument
-                android:name="country"
-                app:argType="string" />
-        </action>
+            app:destination="@id/covidCaseDetailFragment3" />
 
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.example.clase12.covidCases.FavoritesFragment"
+        android:name="com.example.clase13.ui.favorite.FavoritesFragment"
         android:label="FavoritesFragment"
         tools:layout="@layout/fragment_covid_casses">
         <action
             android:id="@+id/action_to_covidCaseDetailFragment"
-            app:destination="@id/covidCaseDetailFragment" >
-            <argument
-                android:name="country"
-                app:argType="string"/>
-        </action>
+            app:destination="@id/covidCaseDetailFragment3" />
     </fragment>
     <fragment
-        android:id="@+id/covidCaseDetailFragment"
-        android:name="com.example.clase12.covidCases.CovidCaseDetailFragment"
+        android:id="@+id/covidCaseDetailFragment3"
+        android:name="com.example.clase13.ui.covidCaseDetail.CovidCaseDetailFragment"
         android:label="activity_covid_case_detail"
-        tools:layout="@layout/activity_covid_case_detail" >
+        tools:layout="@layout/activity_covid_case_detail">
         <argument
             android:name="country"
             app:argType="string" />
